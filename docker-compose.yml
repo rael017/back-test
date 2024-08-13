@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+  app:
+    image: webdevops/php-apache:8.0
+    container_name: laravel_app
+    volumes:
+      - .:/app
+    ports:
+      - "8080:80"
+    working_dir: /app
+    environment:
+      DB_HOST: db
+      DB_DATABASE: laravel
+      DB_USERNAME: postgres
+      DB_PASSWORD: sua_senha
+
+  db:
+    image: postgres:12
+    container_name: postgres_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sua_senha
+
+volumes:
+  db_data:
